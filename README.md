@@ -1,5 +1,6 @@
 # SQLPsdem
-Dataset and code for "SQLPsdem: A Proxy-based Mechanism towards Detecting, Locating and Preventing Second-Order SQL Injections"
+Dataset and code for "SQLPsdem: A Proxy-based Mechanism towards Detecting, Locating and Preventing Second-Order SQL Injections"  
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/a00780f9-6e01-4524-8d98-4abfb0cdfdd9)
 
 ###  1. Web Application Deployment
    #### 1.1 Overview
