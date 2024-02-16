@@ -58,7 +58,15 @@ Click on the run.bat file located in the root directory of the mysql-proxy-0.8.5
 
 ###  4. Attack Case Generation Tools
    #### 4.1 SQLMAP
-   
+   Sqlmap needs to run in a Python 2 environment and requires the intermediate request from step 2. Open the sqlmap folder and execute the following command in the root directory:   
+   ···sqlmap.py -r C:\Users\liujia\Desktop\request.txt --batch -o···  
+You can use this command as a template, and for each subsequent request, you only need to modify the request path without any additional modifications.   
+If the following interface appears, it indicates successful execution:  
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/48372159-4445-4af9-93f6-d9d9649726ff)
+
+The following result indicates that no vulnerabilities were detected:
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/769d86ae-017c-4983-945d-3869434e3e34)
+
    #### 4.2 DSSS
    
    #### 4.3 SSQL
