@@ -7,7 +7,7 @@ DVWA, short for Damn Vulnerable Web Application, is a web application intentiona
    
    #### 1.2 XAMPP Installation 
 XAMPP is a bundled package for PHP debugging environment that includes the necessary "PHP+MySQL+Apache" services.  
-Download link: https://sourceforge.net/projects/xampp/files/XAMPP Windows/  
+Download link: https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/  
 For the 12 web applications, you will need to download two versions of XAMPP (PHP7 and PHP5). It is recommended to download PHP7.4.18 and PHP5.4.13.  
 DVWA needs to be deployed in the PHP7 environment (the other 11 applications are already categorized). Download PHP7.4.18, click "next" to proceed with the default configuration, modify the installation path, and then run xampp-control.exe.  
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/8402edd1-b144-4ce4-9c7d-93adc44db1f3)
