@@ -37,14 +37,19 @@ For the "Petshop" application, unlike the other 11 applications, the configurati
     Once the download is complete, locate the downloaded setup file (usually in your Downloads folder) and double-click on it to run the installer.  
     
    #### 2.2 Saving Intermediate Requests
-   Manually：Run Fiddler and log in to DVWA. Navigate to any page, fill in the input fields, and submit the request. Then, in the Fiddler interface, locate the intercepted requests on the left side. Click on the desired request, then click on "Inspectors" on the right side. Finally, click on the "Raw" button at the bottom to view the detailed request body. Copy the 
+   Manually：
+   
+   Run Fiddler and log in to DVWA. Navigate to any page, fill in the input fields, and submit the request. Then, in the Fiddler interface, locate the intercepted requests on the left side. Click on the desired request, then click on "Inspectors" on the right side. Finally, click on the "Raw" button at the bottom to view the detailed request body. Copy the 
    request body and save it in a txt file (example save path: C:\Users\liujia\Desktop\request.txt).  
+   
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/e923942a-8ca4-443b-9b59-283441ecd978)
    
  Automatically（Complex configuration）：
+ 
  Requirements：  Fidder+ Selenium + Webdriver + demp.py
  
  (1) By default, Fiddler can only listen to HTTP requests. To capture HTTPS request packets, you need to make some settings. The setting path is: Tools->Options->HTTPS.
+ 
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/2ce88026-9103-4857-b2b8-f3511fe9aed6)
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/165f2bc2-b536-4699-bacf-b03906509d28)
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/e8aef8d2-f7cf-4599-adec-6c83ce971c5d)
@@ -55,6 +60,7 @@ For the "Petshop" application, unlike the other 11 applications, the configurati
 （2） Add a script to Fiddler：
 
    1）Set the path: Rules->Customize
+   
 ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/4e344966-24dd-4684-afed-cc41e743769b)
 
 Press Ctrl+F to find the function OnBeforeRequest, and add the following script to this function.
@@ -111,6 +117,7 @@ First of all, we need to check our own version of Google browser, enter chrome:/
 ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/492b4a39-d629-47f3-8733-204455970849)
 
 Subsequently, enter the website https://registry.npmmirror.com/binary.html?. Path=chromedriver/ Just choose the corresponding version of the driver to download.
+
 ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/3f0b764b-2ca0-42af-8f1d-f1baf5c827a1)
 
 Decompress after downloading, put the driver in the startup directory of Google browser, and then configure its address into the environment variable.
@@ -120,7 +127,9 @@ Decompress after downloading, put the driver in the startup directory of Google 
 ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/3373115c-28c7-4525-a3b0-bfee0ab4a2cf)
 
 【Step 3】: Execute demo.py
+
 Take bWAPP as an example, modify the paths of input file and output file at input_file and output_file. Note: input_file must be consistent with the file saving path modified in the previous Fiddler script, and output_file is the path to save the request.
+
 ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/cc17b9c7-ce43-460c-9380-b5a9065326de)
 
 It should be noted that when executing demo.py, all the configuration files and agents mentioned before in this article must be opened, and so must Fiddler.
