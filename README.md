@@ -37,9 +37,95 @@ For the "Petshop" application, unlike the other 11 applications, the configurati
     Once the download is complete, locate the downloaded setup file (usually in your Downloads folder) and double-click on it to run the installer.  
     
    #### 2.2 Saving Intermediate Requests
-   Run Fiddler and log in to DVWA. Navigate to any page, fill in the input fields, and submit the request. Then, in the Fiddler interface, locate the intercepted requests on the left side. Click on the desired request, then click on "Inspectors" on the right side. Finally, click on the "Raw" button at the bottom to view the detailed request body. Copy the 
+   Manually：Run Fiddler and log in to DVWA. Navigate to any page, fill in the input fields, and submit the request. Then, in the Fiddler interface, locate the intercepted requests on the left side. Click on the desired request, then click on "Inspectors" on the right side. Finally, click on the "Raw" button at the bottom to view the detailed request body. Copy the 
    request body and save it in a txt file (example save path: C:\Users\liujia\Desktop\request.txt).  
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/e923942a-8ca4-443b-9b59-283441ecd978)
+   
+ Automatically（Complex configuration）：
+ Requirements：  Fidder+ Selenium + Webdriver + demp.py
+ 
+ (1) By default, Fiddler can only listen to HTTP requests. To capture HTTPS request packets, you need to make some settings. The setting path is: Tools->Options->HTTPS.
+   ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/2ce88026-9103-4857-b2b8-f3511fe9aed6)
+   ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/165f2bc2-b536-4699-bacf-b03906509d28)
+   ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/e8aef8d2-f7cf-4599-adec-6c83ce971c5d)
+   ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/cc6bb10f-b0ec-4709-85e3-42c08479e8dc)
+
+   Then Open the Chrome browser and import the certificate in the browser. Restart browser, restart Fiddler (reset certificate)
+   
+（2） Add a script to Fiddler：
+
+   1）Set the path: Rules->Customize
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/4e344966-24dd-4684-afed-cc41e743769b)
+
+Press Ctrl+F to find the function OnBeforeRequest, and add the following script to this function.
+
+1.	if ((oSession.fullUrl.Contains("?") || oSession.HTTPMethodIs("POST"))&& oSession.fullUrl.Contains("localhost")) {  
+2.	            var fso;  
+3.	            var file;  
+4.	            fso = new ActiveXObject("Scripting.FileSystemObject");  
+5.	            var fileName ="C:\\pythonProject1\\request\\" +  oSession.url.replace(/[^\w]/g, '_') + ".txt";  
+6.	            // File save path, which can be customized.  
+7.	            file = fso.OpenTextFile(fileName, 8, true, true);  
+8.	            file.writeLine("Request url: " + oSession.url);  
+9.	            file.writeLine("Request header:" + "\n" + oSession.oRequest.headers);  
+10.	            file.writeLine("Request body: " + oSession.GetRequestBodyAsString());  
+11.	            file.writeLine("\n");  
+12.	            file.close();  
+13.	        }  
+
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/7830c13c-bd4b-4feb-a343-84966d88b120)
+
+Then find the function OnBeforeResponse, and add the following script to this function.
+
+1.	if ((oSession.fullUrl.Contains("?") || oSession.HTTPMethodIs("POST"))&& oSession.fullUrl.Contains("localhost")) {  
+2.	            oSession.utilDecodeResponse();  
+3.	            //Eliminate the situation that the saved request may be garbled.  
+4.	            var fso;  
+5.	            var file;  
+6.	            fso = new ActiveXObject("Scripting.FileSystemObject");  
+7.	           // File save path, which can be customized.
+8.	            var fileName ="C:\\pythonProject1\\request\\" +  oSession.url.replace(/[^\w]/g, '_') + ".txt";  
+9.	            file = fso.OpenTextFile(fileName,8 ,true, true);  
+10.	            file.writeLine("Response code: " + oSession.responseCode);  
+11.	            file.writeLine("Response body: " + oSession.GetResponseBodyAsString());  
+12.	            file.writeLine("\n");  
+13.	            file.close();  
+14.	        }  
+
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/5891b655-1324-46c9-a248-1edc8864cfd9)
+
+（3）Run demo.py to get the request automatically.
+
+【Step 1】: Install selenium
+
+First, install all the uninstalled libraries, and enter the following command line in the terminal of pycharm.
+
+    1. pip install selenium
+    
+The installation of other uninstalled libraries is similar to the above code.
+
+【Step 2】: Install the chromedriver driver.
+
+First of all, we need to check our own version of Google browser, enter chrome://version/ in the search box, and see that my browser version is 100.0.4896.75 (official version).
+
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/492b4a39-d629-47f3-8733-204455970849)
+
+Subsequently, enter the website https://registry.npmmirror.com/binary.html?. Path=chromedriver/ Just choose the corresponding version of the driver to download.
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/3f0b764b-2ca0-42af-8f1d-f1baf5c827a1)
+
+Decompress after downloading, put the driver in the startup directory of Google browser, and then configure its address into the environment variable.
+
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/8800c5c7-04ba-4bb4-97a3-3bb65674113e)
+
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/3373115c-28c7-4525-a3b0-bfee0ab4a2cf)
+
+【Step 3】: Execute demo.py
+Take bWAPP as an example, modify the paths of input file and output file at input_file and output_file. Note: input_file must be consistent with the file saving path modified in the previous Fiddler script, and output_file is the path to save the request.
+![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/cc17b9c7-ce43-460c-9380-b5a9065326de)
+
+It should be noted that when executing demo.py, all the configuration files and agents mentioned before in this article must be opened, and so must Fiddler.
+
+
 
 ###  3. Database Proxy
    #### 3.1 Tagging Dvwa (Static Analysis) 
@@ -61,6 +147,8 @@ For the "Petshop" application, unlike the other 11 applications, the configurati
 
 ###  4. Attack Case Generation Tools
    #### 4.1 SQLMAP
+   
+   Manually:
    Sqlmap needs to run in a Python 2 environment and requires the intermediate request from Section 2.2. Open the sqlmap folder and execute the following command in the root directory:   
    sqlmap.py -r C:\Users\liujia\Desktop\request.txt --batch -o  
    You can use this command as a template, and for each subsequent request, you only need to modify the request path without any additional modifications.   
@@ -70,6 +158,13 @@ For the "Petshop" application, unlike the other 11 applications, the configurati
    The following result indicates that no vulnerabilities were detected:
    ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/769d86ae-017c-4983-945d-3869434e3e34)
 
+   Automatically：
+   Sqlmap needs to run in python2 environment, and it needs to use the intermediate request in step 2. We have written a batch file, which can process each request file in sequence, create a new text, and enter the code (kk.bat) in it. In this file, the path of the line 4 needs to be changed to the installation path of Sqlmap, the path of the  line 5 needs to be changed to the storage path of the intermediate request of Section 2, and the path of the line 6 needs to be changed to the storage path of the results (validation.txt).
+
+   ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/afdd4805-eaff-4e68-bc46-f3bb4d23ed27)
+
+
+   
    #### 4.2 DSSS
    DSSS needs to be run in a Python 3 environment. Open the CMD window in the root directory of the DSSS folder. Enter the command:  
    python3 dsss.py --url="url" --data="data"  
