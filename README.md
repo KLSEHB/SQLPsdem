@@ -46,7 +46,7 @@ For the "Petshop" application, unlike the other 11 applications, the configurati
    
  Automatically（Complex configuration）：
  
- Requirements：  Fidder+ Selenium + Webdriver + demp.py
+ Requirements：  Fiddler+ Selenium + Webdriver + demp.py
  
  (1) By default, Fiddler can only listen to HTTP requests. To capture HTTPS request packets, you need to make some settings. The setting path is: Tools->Options->HTTPS.
  
