@@ -169,10 +169,6 @@ It should be noted that when executing demo.py, all the configuration files and 
 
    Automatically：
    Sqlmap needs to run in python2 environment, and it needs to use the intermediate request in step 2. We have written a batch file, which can process each request file in sequence, create a new text, and enter the code (kk.bat) in it. In this file, the path of the line 4 needs to be changed to the installation path of Sqlmap, the path of the  line 5 needs to be changed to the storage path of the intermediate request of Section 2, and the path of the line 6 needs to be changed to the storage path of the results (validation.txt).
-
-   ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/afdd4805-eaff-4e68-bc46-f3bb4d23ed27)
-
-
    
    #### 4.2 DSSS
    DSSS needs to be run in a Python 3 environment. Open the CMD window in the root directory of the DSSS folder. Enter the command:  
