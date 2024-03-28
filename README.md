@@ -3,6 +3,9 @@ Dataset and code for "SQLPsdem: A Proxy-based Mechanism towards Detecting, Locat
 
 ![image](https://github.com/KLSEHB/SQLPsdem/assets/142284636/a00780f9-6e01-4524-8d98-4abfb0cdfdd9)
 
+Moreover, there are 4 videos in the directory "7.Guide videos for automation". They describe the process of automation in four stages using bwapp web application as an example: converting original web apps to tagged web apps, automated capturing requests, automated attacking by sqlmap, and automatic result aggregation.
+
+
 ###  1. Web Application Deployment
    #### 1.1 Overview
 DVWA, short for Damn Vulnerable Web Application, is a web application intentionally designed with numerous vulnerabilities. It is developed using PHP and MySQL and serves as a legitimate environment for security professionals to test their tools and skills. We takes DVWA as an example, while the operational steps for the other 11 applications are similar to DVWA with minor differences.
